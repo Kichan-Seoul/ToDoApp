@@ -2,17 +2,6 @@
 
 import { useEffect, useState, type FormEvent } from "react";
 import type { JSX } from "react";
-import { Plus_Jakarta_Sans, IBM_Plex_Mono } from "next/font/google";
-
-const sans = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-});
-
-const mono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["500"],
-});
 
 export type WeeklyPlanFormProps = {
   plan?: {
@@ -119,7 +108,7 @@ export function WeeklyPlanForm({
 
   return (
     <div
-      className={`${sans.className} fixed inset-0 z-50 flex items-center justify-center bg-[#0c0e12]/60 p-4 backdrop-blur-sm`}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
       onMouseDown={(event) => {
         if (event.target === event.currentTarget) onCancel();
       }}
@@ -130,17 +119,11 @@ export function WeeklyPlanForm({
         aria-modal="true"
         aria-labelledby="weekly-plan-form-title"
         onMouseDown={(event) => event.stopPropagation()}
-        className="w-full max-w-md overflow-hidden rounded-2xl border border-[#e2e4ea] bg-white shadow-2xl"
+        className="w-full max-w-md overflow-hidden rounded-card border border-hairline bg-canvas shadow-elevated"
       >
-        <div className="h-1.5 w-full bg-[#0f7a72]" />
         <div className="p-6 sm:p-7">
-          <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f7a72]">
-            Weekly Cadence
-          </p>
-          <h2
-            id="weekly-plan-form-title"
-            className="mb-6 text-xl font-bold text-[#14161a]"
-          >
+          <p className="mb-1 text-sm font-medium text-muted">Weekly Cadence</p>
+          <h2 id="weekly-plan-form-title" className="mb-6 text-xl font-semibold text-ink">
             {isEdit ? "주간 계획 수정" : "새 주간 계획"}
           </h2>
 
@@ -148,7 +131,7 @@ export function WeeklyPlanForm({
             <div>
               <label
                 htmlFor="weekly-plan-title"
-                className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-[#63697a]"
+                className="mb-1.5 block text-sm font-medium text-muted"
               >
                 제목
               </label>
@@ -160,7 +143,7 @@ export function WeeklyPlanForm({
                 value={title}
                 onChange={(event) => setTitle(event.target.value)}
                 placeholder="예: 이번 주 운동 계획"
-                className="w-full rounded-lg border border-[#e2e4ea] bg-[#f3f4f6] px-3.5 py-2.5 text-sm text-[#14161a] outline-none transition focus:border-[#0f7a72] focus:ring-2 focus:ring-[#0f7a72]/25"
+                className="h-14 w-full rounded-lg border border-hairline bg-canvas px-3.5 text-base text-ink outline-none transition focus:border-2 focus:border-ink"
               />
             </div>
 
@@ -168,7 +151,7 @@ export function WeeklyPlanForm({
               <div>
                 <label
                   htmlFor="weekly-plan-start"
-                  className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-[#63697a]"
+                  className="mb-1.5 block text-sm font-medium text-muted"
                 >
                   주 시작일
                 </label>
@@ -178,13 +161,13 @@ export function WeeklyPlanForm({
                   required
                   value={weekStartDate}
                   onChange={(event) => setWeekStartDate(event.target.value)}
-                  className={`${mono.className} w-full rounded-lg border border-[#e2e4ea] bg-[#f3f4f6] px-3 py-2.5 text-sm text-[#14161a] outline-none transition focus:border-[#0f7a72] focus:ring-2 focus:ring-[#0f7a72]/25`}
+                  className="h-14 w-full rounded-lg border border-hairline bg-canvas px-3.5 text-base text-ink outline-none transition focus:border-2 focus:border-ink"
                 />
               </div>
               <div>
                 <label
                   htmlFor="weekly-plan-end"
-                  className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-[#63697a]"
+                  className="mb-1.5 block text-sm font-medium text-muted"
                 >
                   주 종료일
                 </label>
@@ -194,7 +177,7 @@ export function WeeklyPlanForm({
                   required
                   value={weekEndDate}
                   onChange={(event) => setWeekEndDate(event.target.value)}
-                  className={`${mono.className} w-full rounded-lg border border-[#e2e4ea] bg-[#f3f4f6] px-3 py-2.5 text-sm text-[#14161a] outline-none transition focus:border-[#0f7a72] focus:ring-2 focus:ring-[#0f7a72]/25`}
+                  className="h-14 w-full rounded-lg border border-hairline bg-canvas px-3.5 text-base text-ink outline-none transition focus:border-2 focus:border-ink"
                 />
               </div>
             </div>
@@ -202,7 +185,7 @@ export function WeeklyPlanForm({
             <div>
               <label
                 htmlFor="weekly-plan-goal"
-                className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-[#63697a]"
+                className="mb-1.5 block text-sm font-medium text-muted"
               >
                 연결할 1년 목표
               </label>
@@ -210,7 +193,7 @@ export function WeeklyPlanForm({
                 id="weekly-plan-goal"
                 value={annualGoalId ?? ""}
                 onChange={(event) => setAnnualGoalId(event.target.value)}
-                className="w-full rounded-lg border border-[#e2e4ea] bg-[#f3f4f6] px-3.5 py-2.5 text-sm text-[#14161a] outline-none transition focus:border-[#0f7a72] focus:ring-2 focus:ring-[#0f7a72]/25"
+                className="h-14 w-full rounded-lg border border-hairline bg-canvas px-3.5 text-base text-ink outline-none transition focus:border-2 focus:border-ink"
               >
                 <option value="">연결 안 함</option>
                 {annualGoals.map((goal) => (
@@ -224,7 +207,7 @@ export function WeeklyPlanForm({
             {error && (
               <div
                 role="alert"
-                className="rounded-lg border border-[#c0293d]/40 bg-[#fbeaec] px-3 py-2 text-sm text-[#c0293d]"
+                className="rounded-lg border border-error/30 bg-error-soft px-3 py-2 text-sm text-error"
               >
                 {error}
               </div>
@@ -236,7 +219,7 @@ export function WeeklyPlanForm({
                   type="button"
                   onClick={handleDelete}
                   disabled={submitting}
-                  className="text-sm font-semibold text-[#c0293d] transition hover:text-[#96001b] disabled:cursor-not-allowed disabled:opacity-50"
+                  className="text-sm font-semibold text-error transition hover:text-error-hover disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   삭제
                 </button>
@@ -249,14 +232,14 @@ export function WeeklyPlanForm({
                   type="button"
                   onClick={onCancel}
                   disabled={submitting}
-                  className="rounded-lg border border-[#e2e4ea] px-4 py-2 text-sm font-semibold text-[#14161a] transition hover:bg-[#f3f4f6] disabled:cursor-not-allowed disabled:opacity-50"
+                  className="rounded-lg border border-ink px-4 py-2.5 text-sm font-semibold text-ink transition hover:bg-surface-soft disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   취소
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="inline-flex items-center gap-2 rounded-lg bg-[#0f7a72] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#0c6259] disabled:cursor-not-allowed disabled:opacity-60"
+                  className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-on-primary transition hover:bg-primary-active disabled:cursor-not-allowed disabled:bg-primary-disabled"
                 >
                   {submitting && (
                     <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white/40 border-t-white" />

@@ -19,17 +19,6 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Plus_Jakarta_Sans, IBM_Plex_Mono } from "next/font/google";
-
-const sans = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-});
-
-const mono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["500"],
-});
 
 export type TaskStatus = "todo" | "doing" | "done";
 
@@ -50,15 +39,15 @@ type TaskBoardProps = {
 };
 
 const COLUMNS: { status: TaskStatus; label: string; accent: string }[] = [
-  { status: "todo", label: "할 일", accent: "#63697a" },
-  { status: "doing", label: "진행 중", accent: "#b45309" },
-  { status: "done", label: "완료", accent: "#15803d" },
+  { status: "todo", label: "할 일", accent: "#6a6a6a" },
+  { status: "doing", label: "진행 중", accent: "#ff385c" },
+  { status: "done", label: "완료", accent: "#0f7a72" },
 ];
 
 const STATUSES = COLUMNS.map((column) => column.status);
 
 function accentForStatus(status: TaskStatus): string {
-  return COLUMNS.find((column) => column.status === status)?.accent ?? "#63697a";
+  return COLUMNS.find((column) => column.status === status)?.accent ?? "#6a6a6a";
 }
 
 function formatCardDate(value: string): string {
@@ -141,7 +130,7 @@ export function TaskBoard({
       onDragEnd={handleDragEnd}
       onDragCancel={() => setActiveTask(null)}
     >
-      <div className={`${sans.className} grid grid-cols-1 gap-4 sm:grid-cols-3`}>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         {COLUMNS.map((column) => (
           <BoardColumn
             key={column.status}
@@ -157,7 +146,7 @@ export function TaskBoard({
       <DragOverlay>
         {activeTask ? (
           <div
-            className="w-full max-w-xs rotate-1 rounded-xl border border-[#e2e4ea] border-l-[3px] bg-white px-3 py-2.5 shadow-2xl"
+            className="w-full max-w-xs rotate-1 rounded-lg border border-hairline border-l-[3px] bg-canvas px-3 py-2.5 shadow-2xl"
             style={{ borderLeftColor: accentForStatus(activeTask.status) }}
           >
             <TaskCardBody task={activeTask} />
@@ -186,8 +175,8 @@ function BoardColumn({
   return (
     <div
       ref={setNodeRef}
-      className={`flex flex-col rounded-2xl border bg-white p-3 transition-colors ${
-        isOver ? "border-[#b45309] bg-[#fff7ed]" : "border-[#e2e4ea]"
+      className={`flex flex-col rounded-2xl border bg-canvas p-3 transition-colors ${
+        isOver ? "border-primary bg-primary-soft" : "border-hairline"
       }`}
     >
       <div className="mb-3 flex items-center justify-between px-1">
@@ -197,11 +186,9 @@ function BoardColumn({
             style={{ backgroundColor: accent }}
             aria-hidden
           />
-          <h3 className="text-sm font-bold text-[#14161a]">{label}</h3>
+          <h3 className="text-sm font-semibold text-ink">{label}</h3>
         </div>
-        <span
-          className={`${mono.className} rounded-full bg-[#f3f4f6] px-2 py-0.5 text-xs font-medium text-[#63697a]`}
-        >
+        <span className="rounded-full bg-surface-soft px-2 py-0.5 text-xs font-semibold text-muted">
           {tasks.length}
         </span>
       </div>
@@ -212,7 +199,7 @@ function BoardColumn({
       >
         <div className="flex min-h-[140px] flex-1 flex-col gap-2">
           {tasks.length === 0 && (
-            <div className="flex flex-1 items-center justify-center rounded-lg border border-dashed border-[#e2e4ea] py-8 text-center text-xs text-[#9aa0b0]">
+            <div className="flex flex-1 items-center justify-center rounded-lg border border-dashed border-hairline py-8 text-center text-xs text-muted-soft">
               카드를 이곳에 놓으세요
             </div>
           )}
@@ -262,7 +249,7 @@ function SortableTaskCard({
           onTaskClick(task);
         }
       }}
-      className="flex cursor-grab flex-col gap-1.5 rounded-xl border border-[#e2e4ea] border-l-[3px] bg-white px-3 py-2.5 text-left shadow-sm outline-none transition hover:border-[#b45309]/50 hover:shadow-md focus-visible:ring-2 focus-visible:ring-[#b45309]/40 active:cursor-grabbing"
+      className="flex cursor-grab flex-col gap-1.5 rounded-card border border-hairline border-l-[3px] bg-canvas px-3 py-2.5 text-left outline-none transition hover:border-border-strong hover:shadow-elevated focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink active:cursor-grabbing"
     >
       <TaskCardBody task={task} />
     </div>
@@ -272,12 +259,8 @@ function SortableTaskCard({
 function TaskCardBody({ task }: { task: BoardTask }): JSX.Element {
   return (
     <>
-      <p className="line-clamp-2 text-sm font-semibold leading-snug text-[#14161a]">
-        {task.title}
-      </p>
-      <p className={`${mono.className} text-[11px] text-[#9aa0b0]`}>
-        {formatCardDate(task.date)}
-      </p>
+      <p className="line-clamp-2 text-sm font-semibold leading-snug text-ink">{task.title}</p>
+      <p className="text-xs tabular-nums text-muted-soft">{formatCardDate(task.date)}</p>
     </>
   );
 }

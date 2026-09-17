@@ -4,19 +4,8 @@ import { useState } from "react";
 import type { JSX } from "react";
 import Link from "next/link";
 import useSWR from "swr";
-import { Plus_Jakarta_Sans, IBM_Plex_Mono } from "next/font/google";
 import { ProgressBar } from "@/components/ProgressBar";
 import { WeeklyPlanForm } from "@/components/WeeklyPlanForm";
-
-const sans = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-});
-
-const mono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["500"],
-});
 
 type WeeklyPlan = {
   _id: string;
@@ -61,44 +50,38 @@ export default function WeeklyPlansPage(): JSX.Element {
   );
 
   return (
-    <div className={sans.className}>
+    <div>
       <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
         <div>
-          <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0f7a72]">
-            Weekly Cadence
-          </p>
-          <h1 className="text-2xl font-bold text-[#14161a] sm:text-3xl">
-            주간 계획
-          </h1>
-          <p className="mt-1.5 text-sm text-[#63697a]">
+          <p className="mb-1 text-sm font-medium text-muted">Weekly Cadence</p>
+          <h1 className="text-[28px] font-bold text-ink">주간 계획</h1>
+          <p className="mt-1.5 text-sm text-muted">
             한 주의 리듬을 계획하고 진행률을 추적하세요.
           </p>
         </div>
         <button
           type="button"
           onClick={() => setShowForm(true)}
-          className="inline-flex items-center gap-1.5 rounded-lg bg-[#0f7a72] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#0c6259]"
+          className="inline-flex h-12 items-center gap-1.5 rounded-lg bg-primary px-6 text-base font-medium text-on-primary transition hover:bg-primary-active"
         >
           <span className="text-base leading-none">+</span> 새 주간 계획
         </button>
       </div>
 
-      {isLoading && (
-        <p className="text-sm text-[#63697a]">불러오는 중...</p>
-      )}
+      {isLoading && <p className="text-sm text-muted">불러오는 중...</p>}
 
       {error && (
         <div
           role="alert"
-          className="rounded-lg border border-[#c0293d]/40 bg-[#fbeaec] px-4 py-3 text-sm text-[#c0293d]"
+          className="rounded-lg border border-error/30 bg-error-soft px-4 py-3 text-sm text-error"
         >
           주간 계획을 불러오지 못했습니다.
         </div>
       )}
 
       {plans && plans.length === 0 && (
-        <div className="rounded-2xl border border-dashed border-[#e2e4ea] bg-white/60 px-6 py-14 text-center">
-          <p className="text-sm text-[#63697a]">
+        <div className="rounded-card border border-dashed border-hairline px-6 py-14 text-center">
+          <p className="text-sm text-muted">
             아직 주간 계획이 없습니다. 첫 계획을 만들어보세요.
           </p>
         </div>
@@ -110,15 +93,13 @@ export default function WeeklyPlansPage(): JSX.Element {
             <Link
               key={plan._id}
               href={`/weekly/${plan._id}`}
-              className="group flex flex-col justify-between rounded-2xl border border-[#e2e4ea] bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-[#0f7a72]/40 hover:shadow-md"
+              className="group flex flex-col justify-between rounded-card border border-hairline bg-canvas p-5 transition hover:-translate-y-0.5 hover:border-border-strong hover:shadow-elevated"
             >
               <div>
-                <p
-                  className={`${mono.className} mb-2 text-xs text-[#63697a]`}
-                >
+                <p className="mb-2 text-xs tabular-nums text-muted">
                   {formatDateRange(plan.weekStartDate, plan.weekEndDate)}
                 </p>
-                <h2 className="mb-4 text-base font-bold text-[#14161a] group-hover:text-[#0f7a72]">
+                <h2 className="mb-4 text-base font-semibold text-ink group-hover:text-primary">
                   {plan.title}
                 </h2>
               </div>

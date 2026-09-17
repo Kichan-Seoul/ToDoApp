@@ -1,17 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
+import { NavTabs } from "@/components/NavTabs";
 import { UserMenu } from "@/components/UserMenu";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -21,27 +18,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="ko"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col bg-zinc-50 text-zinc-900">
-        <header className="border-b border-zinc-200 bg-white">
-          <nav className="mx-auto flex max-w-5xl items-center gap-6 px-6 py-4 text-sm font-medium">
-            <span className="text-base font-semibold">할일 + 계획</span>
-            <Link href="/" className="text-zinc-600 hover:text-zinc-950">
-              오늘
+    <html lang="ko" className={`${inter.variable} h-full antialiased`}>
+      <body className="flex min-h-full flex-col bg-canvas font-sans text-ink">
+        <header className="border-b border-hairline bg-canvas">
+          <nav className="mx-auto flex max-w-5xl items-center gap-8 px-6">
+            <Link href="/" className="flex h-20 items-center text-lg font-bold text-ink">
+              할일 + 계획
             </Link>
-            <Link href="/weekly" className="text-zinc-600 hover:text-zinc-950">
-              주간 계획
-            </Link>
-            <Link href="/goals" className="text-zinc-600 hover:text-zinc-950">
-              1년 목표
-            </Link>
+            <NavTabs />
             <UserMenu />
           </nav>
         </header>
-        <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-8">{children}</main>
+        <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-10">{children}</main>
       </body>
     </html>
   );

@@ -2,17 +2,6 @@
 
 import { useEffect, useState, type FormEvent } from "react";
 import type { JSX } from "react";
-import { Plus_Jakarta_Sans, IBM_Plex_Mono } from "next/font/google";
-
-const sans = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-});
-
-const mono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["500"],
-});
 
 type TaskStatus = "todo" | "doing" | "done";
 
@@ -121,7 +110,7 @@ export function TaskForm({
 
   return (
     <div
-      className={`${sans.className} fixed inset-0 z-50 flex items-center justify-center bg-[#0c0e12]/60 p-4 backdrop-blur-sm`}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
       onMouseDown={(event) => {
         if (event.target === event.currentTarget) onCancel();
       }}
@@ -132,23 +121,17 @@ export function TaskForm({
         aria-modal="true"
         aria-labelledby="task-form-title"
         onMouseDown={(event) => event.stopPropagation()}
-        className="w-full max-w-md overflow-hidden rounded-2xl border border-[#e2e4ea] bg-white shadow-2xl"
+        className="w-full max-w-md overflow-hidden rounded-card border border-hairline bg-canvas shadow-elevated"
       >
-        <div className="h-1.5 w-full bg-[#b45309]" />
         <div className="p-6 sm:p-7">
-          <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#b45309]">
-            Today&apos;s Action
-          </p>
-          <h2 id="task-form-title" className="mb-6 text-xl font-bold text-[#14161a]">
+          <p className="mb-1 text-sm font-medium text-muted">Today&apos;s Action</p>
+          <h2 id="task-form-title" className="mb-6 text-xl font-semibold text-ink">
             {isEdit ? "할 일 수정" : "새 할 일"}
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label
-                htmlFor="task-title"
-                className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-[#63697a]"
-              >
+              <label htmlFor="task-title" className="mb-1.5 block text-sm font-medium text-muted">
                 제목
               </label>
               <input
@@ -159,15 +142,12 @@ export function TaskForm({
                 value={title}
                 onChange={(event) => setTitle(event.target.value)}
                 placeholder="예: 보고서 초안 작성"
-                className="w-full rounded-lg border border-[#e2e4ea] bg-[#f3f4f6] px-3.5 py-2.5 text-sm text-[#14161a] outline-none transition focus:border-[#b45309] focus:ring-2 focus:ring-[#b45309]/25"
+                className="h-14 w-full rounded-lg border border-hairline bg-canvas px-3.5 text-base text-ink outline-none transition focus:border-2 focus:border-ink"
               />
             </div>
 
             <div>
-              <label
-                htmlFor="task-date"
-                className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-[#63697a]"
-              >
+              <label htmlFor="task-date" className="mb-1.5 block text-sm font-medium text-muted">
                 날짜
               </label>
               <input
@@ -176,7 +156,7 @@ export function TaskForm({
                 required
                 value={date}
                 onChange={(event) => setDate(event.target.value)}
-                className={`${mono.className} w-full rounded-lg border border-[#e2e4ea] bg-[#f3f4f6] px-3 py-2.5 text-sm text-[#14161a] outline-none transition focus:border-[#b45309] focus:ring-2 focus:ring-[#b45309]/25`}
+                className="h-14 w-full rounded-lg border border-hairline bg-canvas px-3.5 text-base text-ink outline-none transition focus:border-2 focus:border-ink"
               />
             </div>
 
@@ -184,7 +164,7 @@ export function TaskForm({
               <div>
                 <label
                   htmlFor="task-status"
-                  className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-[#63697a]"
+                  className="mb-1.5 block text-sm font-medium text-muted"
                 >
                   상태
                 </label>
@@ -192,7 +172,7 @@ export function TaskForm({
                   id="task-status"
                   value={status}
                   onChange={(event) => setStatus(event.target.value as TaskStatus)}
-                  className="w-full rounded-lg border border-[#e2e4ea] bg-[#f3f4f6] px-3.5 py-2.5 text-sm text-[#14161a] outline-none transition focus:border-[#b45309] focus:ring-2 focus:ring-[#b45309]/25"
+                  className="h-14 w-full rounded-lg border border-hairline bg-canvas px-3.5 text-base text-ink outline-none transition focus:border-2 focus:border-ink"
                 >
                   {(Object.keys(STATUS_LABEL) as TaskStatus[]).map((value) => (
                     <option key={value} value={value}>
@@ -206,7 +186,7 @@ export function TaskForm({
             <div>
               <label
                 htmlFor="task-weekly-plan"
-                className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-[#63697a]"
+                className="mb-1.5 block text-sm font-medium text-muted"
               >
                 연결할 주간 계획
               </label>
@@ -214,7 +194,7 @@ export function TaskForm({
                 id="task-weekly-plan"
                 value={weeklyPlanId ?? ""}
                 onChange={(event) => setWeeklyPlanId(event.target.value)}
-                className="w-full rounded-lg border border-[#e2e4ea] bg-[#f3f4f6] px-3.5 py-2.5 text-sm text-[#14161a] outline-none transition focus:border-[#b45309] focus:ring-2 focus:ring-[#b45309]/25"
+                className="h-14 w-full rounded-lg border border-hairline bg-canvas px-3.5 text-base text-ink outline-none transition focus:border-2 focus:border-ink"
               >
                 <option value="">연결 안 함</option>
                 {weeklyPlans.map((plan) => (
@@ -228,7 +208,7 @@ export function TaskForm({
             {error && (
               <div
                 role="alert"
-                className="rounded-lg border border-[#c0293d]/40 bg-[#fbeaec] px-3 py-2 text-sm text-[#c0293d]"
+                className="rounded-lg border border-error/30 bg-error-soft px-3 py-2 text-sm text-error"
               >
                 {error}
               </div>
@@ -240,7 +220,7 @@ export function TaskForm({
                   type="button"
                   onClick={handleDelete}
                   disabled={submitting}
-                  className="text-sm font-semibold text-[#c0293d] transition hover:text-[#96001b] disabled:cursor-not-allowed disabled:opacity-50"
+                  className="text-sm font-semibold text-error transition hover:text-error-hover disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   삭제
                 </button>
@@ -253,14 +233,14 @@ export function TaskForm({
                   type="button"
                   onClick={onCancel}
                   disabled={submitting}
-                  className="rounded-lg border border-[#e2e4ea] px-4 py-2 text-sm font-semibold text-[#14161a] transition hover:bg-[#f3f4f6] disabled:cursor-not-allowed disabled:opacity-50"
+                  className="rounded-lg border border-ink px-4 py-2.5 text-sm font-semibold text-ink transition hover:bg-surface-soft disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   취소
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="inline-flex items-center gap-2 rounded-lg bg-[#b45309] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#93440a] disabled:cursor-not-allowed disabled:opacity-60"
+                  className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-on-primary transition hover:bg-primary-active disabled:cursor-not-allowed disabled:bg-primary-disabled"
                 >
                   {submitting && (
                     <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white/40 border-t-white" />

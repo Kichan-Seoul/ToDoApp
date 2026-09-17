@@ -24,14 +24,14 @@ export function UserMenu() {
   if (!me) return null;
 
   return (
-    <div className="ml-auto flex items-center gap-2">
+    <div className="ml-auto flex items-center gap-3">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={me.avatarUrl} alt={me.username} className="h-7 w-7 rounded-full" />
-      <span className="text-zinc-700">{me.username}</span>
+      <img src={me.avatarUrl} alt={me.username} className="h-8 w-8 rounded-full" />
+      <span className="text-sm font-medium text-ink">{me.username}</span>
       <button
         type="button"
         onClick={handleLogout}
-        className="rounded-md border border-zinc-200 px-2.5 py-1 text-xs font-medium text-zinc-600 hover:bg-zinc-100"
+        className="rounded-lg border border-hairline px-3 py-1.5 text-sm font-medium text-ink transition hover:border-border-strong hover:bg-surface-soft"
       >
         로그아웃
       </button>
